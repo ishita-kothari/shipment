@@ -282,3 +282,18 @@ textarea:focus {
         width: auto; /* Shrink button alignment down into the bottom right quadrant */
     }
 }
+
+/* ==========================================================================
+   9. Disabled State
+   ========================================================================== */
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled{
+    cursor: not-allowed;
+
+    background-color: grey;
+    color: white;
+
+    opacity: 0.75;
+}
