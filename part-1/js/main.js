@@ -1,7 +1,7 @@
 import {
     populateFormOptions
 } from './form/options.js';
-import {ShipmentForm} from "./form/ui.js";
+import {ShipmentForm} from "./form/shipment.js";
 
 const form =
     document.querySelector(

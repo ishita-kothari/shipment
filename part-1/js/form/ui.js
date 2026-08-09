@@ -80,64 +80,82 @@ export function setSubmittingState(
         'aria-busy'
     );
 }
-export class ShipmentForm {
-    constructor(form) {
-        this.form = form;
-        this.ui =
-            initializeFormUI(form);
-        this.isSubmitting = false;
 
-    }
+export function showValidationErrors(
+    form,
+    errors
+) {
+    Object.entries(errors).forEach(
+        ([fieldName, message]) => {
+            const field =
+                form.elements[fieldName];
 
-    init() {
-        this.bindEvents();
-
-        updateCustomsVisibility(
-            this.ui.customsSection,
-            this.ui.countryField
-        );
-    }
-
-    bindEvents() {
-        this.ui.countryField?.addEventListener(
-            'change',
-            () => {
-                updateCustomsVisibility(
-                    this.ui.customsSection,
-                    this.ui.countryField
-                );
+            if (!field) {
+                return;
             }
-        );
-        this.form.addEventListener(
-            'submit',
-            (event) => this.handleSubmit(event)
-        );
-    }
 
-    async handleSubmit(event) {
-        event.preventDefault();
+            field.setAttribute(
+                'aria-invalid',
+                'true'
+            );
 
-        if (this.isSubmitting) {
-            return;
+            const errorElement =
+                document.getElementById(
+                    `${fieldName}-error`
+                );
+
+            if (errorElement) {
+                errorElement.textContent =
+                    message;
+            }
         }
-
-
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        this.setSubmitting(true)
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        this.setSubmitting(false)
-    }
-
-    setSubmitting(isSubmitting) {
-        this.isSubmitting =
-            isSubmitting;
-
-        setSubmittingState(
-            this.ui,
-            isSubmitting
-        );
-    }
-
+    );
 }
 
+export function clearValidationErrors(form) {
+    getElements(
+        '[aria-invalid="true"]',
+        form
+    ).forEach((field) => {
+        field.removeAttribute(
+            'aria-invalid'
+        );
+    });
 
+    getElements(
+        '.field-error',
+        form
+    ).forEach((element) => {
+        element.textContent = '';
+    });
+}
+
+export function clearFieldError(field) {
+    if (!field) {
+        return;
+    }
+
+    field.removeAttribute(
+        'aria-invalid'
+    );
+
+    const errorElement =
+        document.getElementById(
+            `${field.name}-error`
+        );
+
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+}
+
+export function focusFirstInvalidField(
+    form,
+    errors
+) {
+    const firstField =
+        Object.keys(errors)[0];
+
+    console.log('firstField', firstField, errors);
+    form.elements[firstField]?.focus();
+}

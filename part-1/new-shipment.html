@@ -6,19 +6,21 @@
             aria-labelledby="shipment-form"
             role="form"
             id="shipment-form"
-            novalidate>
+            novalidate
+    >
         <h2 id="form-heading">Create New Shipment</h2>
         <p class="form-instructions">Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.
         </p>
 
         <!-- SECTION 1: Recipient Fieldset -->
         <fieldset class="form-section">
-            <legend class="section-title">Recipient</legend>
+            <h6 class="section-title">Recipient</h6>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Name <span class="required" aria-hidden="true">*</span></label>
                     <input type="text" id="name" name="name" required autocomplete="name">
+                    <span class="form-error-message" id="name-error" ></span>
                 </div>
 
                 <div class="form-group">
@@ -33,14 +35,16 @@
                 <div class="form-group">
                     <label for="country">Country <span class="required" aria-hidden="true">*</span></label>
                     <select id="country" name="country" autocomplete="country" required>
-                        <option value="" disabled selected>Select a country</option>
-                        <!-- Options go here -->
+                        <option value="" disabled>Select a country</option>
+                        <!-- Options loaded using JS -->
                     </select>
+                    <span class="form-error-message" id="country-error" ></span>
                 </div>
 
                 <div class="form-group">
                     <label for="city">City <span class="required" aria-hidden="true">*</span></label>
                     <input type="text" id="city" name="city" required autocomplete="address-level2">
+                    <span class="form-error-message" id="city-error" ></span>
                 </div>
             </div>
         </fieldset>
@@ -51,7 +55,7 @@
                 class="form-section"
                 hidden
         >
-            <legend class="section-title">Customs information</legend>
+            <h6 class="section-title">Customs information</h6>
 
             <div class="form-row">
                 <div class="form-group">
@@ -62,7 +66,9 @@
                             name="tax_number"
                             disabled
                             autocomplete="off"
+                            required
                     >
+                    <span class="form-error-message" id="tax_number-error" ></span>
                 </div>
 
                 <div class="form-group">
@@ -71,10 +77,12 @@
                             id="export-reason"
                             name="export_reason"
                             disabled
+                            required
                     >
                         <option value="" disabled selected>Select an export reason</option>
                         <!-- Options loaded using JS -->
                     </select>
+                    <span class="form-error-message" id="export_reason-error" ></span>
                 </div>
             </div>
 
@@ -86,7 +94,7 @@
 
         <!-- SECTION 3: Shipping Fieldset -->
         <fieldset class="form-section">
-            <legend class="section-title">Shipping</legend>
+            <h6 class="section-title">Shipping</h6>
 
             <fieldset class="sub-fieldset">
                 <legend class="group-label">
@@ -108,6 +116,7 @@
                         <label for="ship-reliable">Reliable</label>
                     </div>
                 </div>
+                <span class="form-error-message" id="shipping_preference-error" ></span>
             </fieldset>
 
             <!-- Insurance Checkbox -->
@@ -122,7 +131,7 @@
 
         <!-- Submit Action Block -->
         <div class="form-actions">
-            <button type="submit" class="btn-submit" disabled>
+            <button type="submit" class="btn-submit">
                 <span>Send shipment</span>
                 <!-- Decorative Paper Airplane Icon hidden from screen readers -->
                 <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
