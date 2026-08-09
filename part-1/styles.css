@@ -1,0 +1,284 @@
+/* ==========================================================================
+   1. Core Layout Setup & Reset
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 16px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ==========================================================================
+   2. Fieldset and Container Semantics
+   ========================================================================== */
+.form-section {
+    border: 2px dashed #0284c7; /* Match image dashed styling */
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 16px;
+    margin: 0;
+}
+
+.sub-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #0f172a;
+    padding: 0 8px;
+}
+
+/* Structural Form Row (Mobile defaults to stack layout) */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ==========================================================================
+   3. Accessible Typography & Form Labels
+   ========================================================================== */
+label, .group-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    padding-bottom: 0.3rem;
+}
+
+.required {
+    color: #dc2626;
+    margin-left: 2px;
+}
+
+.optional {
+    color: #64748b;
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.field-hint {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   4. Input Fields and Select Dropdowns
+   ========================================================================== */
+input[type="text"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #1e293b;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* High contrast visual focus indicators for keyboard navigation (WCAG 2.4.11 / 2.4.12) */
+input[type="text"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #bae6fd;
+    border-color: #0284c7;
+}
+
+/* ==========================================================================
+   5. Custom Component: Segmented Radio Control (Fast/Cheap/Reliable)
+   ========================================================================== */
+.segmented-control {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 4px;
+    background-color: #f1f5f9;
+}
+
+.segment-option {
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+/* Hide standard circular radio inputs visually while keeping full keyboard focus engine accessible */
+.segment-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.segment-option label {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Style when selected state is checked */
+.segment-option input[type="radio"]:checked + label {
+    background-color: #93c5fd; /* Soft blue color matched from your dashboard mockup */
+    color: #1e3a8a;
+    border-color: #3b82f6;
+    font-weight: 600;
+}
+
+/* Handle keyboard focus indicator mapping to the styled label component */
+.segment-option input[type="radio"]:focus-visible + label {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   6. Checkbox Container Architecture
+   ========================================================================== */
+.checkbox-group {
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.checkbox-wrapper label {
+    font-weight: 500;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   7. Form Actions / Submit Button
+   ========================================================================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #0f172a; /* Dark blue/black button background from image */
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%; /* Spans full width on mobile viewports */
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #1e293b;
+}
+
+.btn-submit:focus-visible {
+    outline: 3px solid #38bdf8;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   8. Responsive Media Queries (Adaptive Desktop Layouts)
+   ========================================================================== */
+
+/* Optimization layer supporting layouts across small tablets to intermediate viewports */
+@media (min-width: 480px) {
+    .segmented-control {
+        flex-direction: row; /* Horizontal control layout shifts across mid-devices */
+        gap: 0;
+    }
+
+    .segment-option label {
+        border-radius: 0;
+        border: none;
+        border-right: 1px solid #cbd5e1;
+    }
+
+    .segment-option:first-child label {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .segment-option:last-child label {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-right: none;
+    }
+}
+
+/* Fully responsive breakout for standard modern Desktop setups */
+@media (min-width: 768px) {
+    .form-section {
+        padding: 24px;
+    }
+
+    .form-row {
+        flex-direction: row; /* Break out to double-column rows */
+        gap: 24px;
+    }
+
+    .form-group {
+        flex: 1; /* Split input pairs perfectly 50/50 down row lines */
+    }
+
+    .btn-submit {
+        width: auto; /* Shrink button alignment down into the bottom right quadrant */
+    }
+}

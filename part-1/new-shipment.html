@@ -1,0 +1,128 @@
+<link rel=stylesheet type="text/css" href="./styles.css">
+
+<main>
+<form action="/" method="POST" aria-labelledby="shipment-form" role="form">
+    <h2 id="form-heading">Create New Shipment</h2>
+    <p class="form-instructions">Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.</p>
+
+    <!-- SECTION 1: Recipient Fieldset -->
+    <fieldset class="form-section">
+        <legend class="section-title">Recipient</legend>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="name" name="name" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="telephone_number">Phone number <span class="optional">(optional)</span></label>
+                <input type="tel" id="telephone_number" name="telephone_number" aria-describedby="phone-hint" autocomplete="tel">
+                <span id="phone-hint" class="field-hint">(Only used if there are issues with the shipment)</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="country">Country <span class="required" aria-hidden="true">*</span></label>
+                <select id="country" name="country" autocomplete="country" required>
+                    <option value="" disabled selected>Select a country</option>
+                    <!-- Options go here -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="city" name="city" required autocomplete="address-level2">
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- SECTION 2: Customs Information Fieldset -->
+    <fieldset
+            id="customs-section"
+            class="form-section"
+            hidden
+    >
+        <legend class="section-title">Customs information</legend>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="tax-number">Tax number <span class="required" aria-hidden="true">*</span></label>
+                <input
+                        type="text"
+                        id="tax-number"
+                        name="tax_number"
+                        disabled
+                        autocomplete="off"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="export-reason">Export reason <span class="required" aria-hidden="true">*</span></label>
+                <select
+                        id="export-reason"
+                        name="export_reason"
+                        disabled
+                >
+                    <option value="" disabled selected>Select an export reason</option>
+                    <!-- Options go here -->
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group large-row">
+            <label for="statements">Statements and declarations</label>
+            <textarea id="statements" name="statements" rows="4"></textarea>
+        </div>
+    </fieldset>
+
+    <!-- SECTION 3: Shipping Fieldset -->
+    <fieldset class="form-section">
+        <legend class="section-title">Shipping</legend>
+
+        <fieldset class="sub-fieldset">
+            <legend class="group-label">
+                How would you like your parcel to be shipped?
+            </legend>
+            <div class="segmented-control">
+                <div class="segment-option">
+                    <input type="radio" id="ship-fast" name="shipping_preference" value="fast" checked required>
+                    <label for="ship-fast">Fast</label>
+                </div>
+
+                <div class="segment-option">
+                    <input type="radio" id="ship-cheap" name="shipping_preference" value="cheap">
+                    <label for="ship-cheap">Cheap</label>
+                </div>
+
+                <div class="segment-option">
+                    <input type="radio" id="ship-reliable" name="shipping_preference" value="reliable">
+                    <label for="ship-reliable">Reliable</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Insurance Checkbox -->
+        <div class="form-group checkbox-group">
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="insurance" name="insured" aria-describedby="insurance-hint">
+                <label for="insurance">I'd like my shipment to be insured</label>
+            </div>
+            <span id="insurance-hint" class="field-hint">Only applies to shipments up to a maximum value of €4000. Terms and conditions apply.</span>
+        </div>
+    </fieldset>
+
+    <!-- Submit Action Block -->
+    <div class="form-actions">
+        <button type="submit" class="btn-submit">
+            <span>Send shipment</span>
+            <!-- Decorative Paper Airplane Icon hidden from screen readers -->
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+            </svg>
+        </button>
+    </div>
+
+</form>
+</main>
