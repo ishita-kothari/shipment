@@ -1,21 +1,19 @@
-import { CUSTOMS_COUNTRIES } from '../constants.js';
+import {CUSTOMS_COUNTRIES} from '../constants.js';
+import {customsFormData, staticFormData} from "../../utils/formData.js";
 
 const PHONE_PATTERN = /^[+0-9\s().-]{6,}$/;
 
-export function validateShipmentForm(form) {
-    const formData = new FormData(form);
+export function validateShipmentForm(formData) {
 
     const errors = {};
 
-    const name = getStringValue(formData, 'name');
-    const country = getStringValue(formData, 'country');
-    const city = getStringValue(formData, 'city');
-
-    const telephoneNumber =
-        getStringValue(formData, 'telephone_number');
-
-    const shippingPreference =
-        getStringValue(formData, 'shipping_preference');
+    const {
+        name,
+        country,
+        city,
+        telephone_number,
+        shipping_preference
+    } = staticFormData(formData);
 
     if (!name) {
         errors.name = 'Please enter the recipient name.';
@@ -29,14 +27,14 @@ export function validateShipmentForm(form) {
         errors.city = 'Please enter the city.';
     }
 
-    if (!shippingPreference) {
+    if (!shipping_preference) {
         errors.shipping_preference =
             'Please select a shipping preference.';
     }
 
     if (
-        telephoneNumber &&
-        !PHONE_PATTERN.test(telephoneNumber)
+        telephone_number &&
+        !PHONE_PATTERN.test(telephone_number)
     ) {
         errors.telephone_number =
             'Please enter a valid telephone number.';
@@ -57,25 +55,15 @@ export function validateShipmentForm(form) {
 }
 
 function validateCustomsFields(formData, errors) {
-    const taxNumber =
-        getStringValue(formData, 'tax_number');
+    const {tax_number, export_reason} = customsFormData(formData);
 
-    const exportReason =
-        getStringValue(formData, 'export_reason');
-
-    if (!taxNumber) {
+    if (!tax_number) {
         errors.tax_number =
             'Please enter the tax number.';
     }
 
-    if (!exportReason) {
+    if (!export_reason) {
         errors.export_reason =
             'Please select an export reason.';
     }
-}
-
-function getStringValue(formData, fieldName) {
-    return String(
-        formData.get(fieldName) ?? ''
-    ).trim();
 }

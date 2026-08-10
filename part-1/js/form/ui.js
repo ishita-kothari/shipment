@@ -156,6 +156,28 @@ export function focusFirstInvalidField(
     const firstField =
         Object.keys(errors)[0];
 
-    console.log('firstField', firstField, errors);
     form.elements[firstField]?.focus();
+}
+
+export function clearCustomsFields(
+    customsSection
+) {
+    if (!customsSection) {
+        return;
+    }
+
+    const fields = customsSection.querySelectorAll(
+        'input, select, textarea'
+    );
+
+    fields.forEach((field) => {
+        field.value = '';
+        field.removeAttribute('aria-invalid');
+    });
+
+    customsSection
+        .querySelectorAll('.form-error-message')
+        .forEach((error) => {
+            error.textContent = '';
+        });
 }
