@@ -1,4 +1,4 @@
-import { CUSTOMS_COUNTRIES } from '../constants.js';
+import {CUSTOMS_COUNTRIES} from '../constants.js';
 import {getElement, getElements} from "../../utils/dom.js";
 
 
@@ -9,10 +9,9 @@ export function initializeFormUI(form) {
             'button[type="submit"]',
             form
         ),
-        customsSection:
-            getElement('#customs-section'),
-        countryField:
-            getElement('#country', form)
+        customsSection: getElement('#customs-section'),
+        countryField: getElement('#country', form),
+        status: getElement('#form-status')
     };
 }
 
@@ -180,4 +179,22 @@ export function clearCustomsFields(
         .forEach((error) => {
             error.textContent = '';
         });
+}
+
+export function showStatus(
+    element,
+    type,
+    message
+) {
+    if (!message) {
+        element.hidden = true;
+        element.textContent = '';
+        return;
+    }
+
+    element.hidden = false;
+    element.textContent = message;
+    element.dataset.status = type;
+    element.classList.toggle("status-success", type === "success");
+    element.classList.toggle("status-error", type === "error");
 }

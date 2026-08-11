@@ -11,7 +11,14 @@
         <h2 id="form-heading">Create New Shipment</h2>
         <p class="form-instructions">Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.
         </p>
+        <div
+                id="form-status"
+                class="form-status"
+                role="status"
+                aria-live="polite"
+                hidden
 
+        ></div>
         <!-- SECTION 1: Recipient Fieldset -->
         <fieldset class="form-section">
             <h6 class="section-title">Recipient</h6>
@@ -126,7 +133,7 @@
                     <input type="checkbox" id="insurance" name="insured" aria-describedby="insurance-hint">
                     <label for="insurance">I'd like my shipment to be insured</label>
                 </div>
-                <span id="insurance-hint" class="field-hint">Only applies to shipments up to a maximum value of €4000. Terms and conditions apply.</span>
+                <span id="insurance-hint" class="field-hint">Only applies to shipments up to a maximum value of &euro;4000. Terms and conditions apply.</span>
             </div>
         </fieldset>
 

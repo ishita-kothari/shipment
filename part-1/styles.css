@@ -16,9 +16,6 @@ body {
 form {
     max-width: 800px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
 }
 
 /* ==========================================================================
@@ -29,7 +26,7 @@ form {
     border-radius: 8px;
     background-color: #ffffff;
     padding: 16px;
-    margin: 0;
+    margin-bottom: 16px;
 }
 
 .sub-fieldset {
@@ -61,6 +58,20 @@ form {
     gap: 6px;
 }
 
+.form-status {
+    border: 1px dashed;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.status-error{
+    border-color: red;
+    background: #ffe7e7;
+}
+.status-success{
+    border-color: green;
+    background: #ebffeb;
+}
 /* ==========================================================================
    3. Accessible Typography & Form Labels
    ========================================================================== */
@@ -142,6 +153,7 @@ textarea:hover {
     position: relative;
     flex: 1;
     display: flex;
+    padding: 4px;
 }
 
 .segment-option input[type="radio"] {
@@ -175,7 +187,7 @@ textarea:hover {
 .segment-option input[type="radio"]:checked + label {
     background-color: #93c5fd;
     color: #1e3a8a;
-    border-color: #3b82f6;
+    /*border-color: #3b82f6;*/
     font-weight: 600;
 }
 
@@ -301,11 +313,13 @@ textarea:hover {
 input:disabled,
 select:disabled,
 textarea:disabled,
-button:disabled{
+button:disabled,
+.segment-option input[type="radio"]:disabled + label
+{
     cursor: not-allowed;
 
-    background-color: grey;
-    color: white;
+    background-color: #e4e3e3;
+    color: black;
 
     opacity: 0.75;
 }

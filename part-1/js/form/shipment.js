@@ -5,18 +5,19 @@ import {
     focusFirstInvalidField,
     initializeFormUI,
     setSubmittingState,
+    showStatus,
     showValidationErrors,
     updateCustomsVisibility
 } from "./ui.js";
 import {validateShipmentForm} from "./validation.js";
 import {buildShipmentPayload} from "./payload.js";
-import {CUSTOMS_COUNTRIES} from "../constants.js";
+import {CUSTOMS_COUNTRIES, FORM_STATUS} from "../constants.js";
+import {createShipment} from "../api.js";
 
 export class ShipmentForm {
     constructor(form) {
         this.form = form;
-        this.ui =
-            initializeFormUI(form);
+        this.ui = initializeFormUI(form);
         this.isSubmitting = false;
 
     }
@@ -42,9 +43,9 @@ export class ShipmentForm {
                 // @TODO: think if we want to clear fields everytime or retain values while switch btw GB/US?
                 // keeping it simple for now .....
                 // if (!requiresCustoms) {
-                    clearCustomsFields(
-                        this.ui.customsSection
-                    );
+                clearCustomsFields(
+                    this.ui.customsSection
+                );
                 // }
 
                 updateCustomsVisibility(
@@ -110,12 +111,7 @@ export class ShipmentForm {
                 formData
             );
 
-        console.log('payload', payload)
-        // @TODO: remove this after implementing API
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        this.setSubmitting(true)
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        this.setSubmitting(false)
+        await this.submitShipment(payload);
     }
 
     setSubmitting(isSubmitting) {
@@ -138,6 +134,28 @@ export class ShipmentForm {
             this.form,
             errors
         );
+    }
+
+    async submitShipment(payload) {
+        this.setSubmitting(true);
+        [...this.form.elements].forEach(el => el.disabled = true)
+        await createShipment(payload)
+            .then(res => {
+                showStatus(this.ui.status, FORM_STATUS.SUCCESS, "Shipment successfully created");
+                this.form.reset();
+                updateCustomsVisibility(
+                    this.ui.customsSection,
+                    this.ui.countryField
+                );
+            })
+            .catch((err) => {
+                showStatus(this.ui.status, FORM_STATUS.ERROR, err.message);
+            })
+            .finally(() => {
+                this.setSubmitting(false);
+                [...this.form.elements].forEach(el => el.disabled = false)
+            });
+
     }
 }
 
