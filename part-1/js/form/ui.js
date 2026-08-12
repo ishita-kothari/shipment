@@ -1,4 +1,4 @@
-import {CUSTOMS_COUNTRIES} from '../constants.js';
+import {CUSTOMS_COUNTRIES, SHIPPING_PREFERENCES} from '../constants.js';
 import {getElement, getElements} from "../../utils/dom.js";
 
 
@@ -199,30 +199,33 @@ export function showStatus(
     element.classList.toggle("status-error", type === "error");
 }
 
-export function renderShippingMethods(container, methods) {
+export function renderShippingMethods(
+    container,
+    shippingMethods
+) {
     container.replaceChildren();
 
-    const fragment = document.createDocumentFragment();
+    shippingMethods.forEach(
+        ({ name }, index) => {
+            const preference = SHIPPING_PREFERENCES[name];
+            const option = document.createElement('div');
 
-    methods.forEach((method, index) => {
-        const option = document.createElement('div');
-        option.className = 'segment-option';
+            option.className = 'segment-option';
 
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.id = `ship-${method.preference}`;
-        input.name = 'shipping_preference';
-        input.value = method.preference;
-        input.checked = index === 0;
-        input.defaultChecked = index === 0;
+            const input = document.createElement('input');
 
-        const label = document.createElement('label');
-        label.htmlFor = input.id;
-        label.textContent = method.name.replace(' shipping method', '');
+            input.type = 'radio';
+            input.id = `ship-${preference}`;
+            input.name = 'shipping_preference';
+            input.value = preference;
+            input.checked = index === 0;
+            input.defaultChecked = index === 0;
 
-        option.append(input, label);
-        fragment.appendChild(option);
-    });
-
-    container.appendChild(fragment);
+            const label = document.createElement('label');
+            label.htmlFor = input.id;
+            label.textContent = name.replace(' shipping method', '');
+            option.append(input, label);
+            container.appendChild(option);
+        }
+    );
 }

@@ -26,15 +26,12 @@ function populateSelect(
         return;
     }
 
-    const fragment =
-        document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
-    const placeholderOption =
-        document.createElement('option');
+    const placeholderOption = document.createElement('option');
 
     placeholderOption.value = '';
-    placeholderOption.textContent =
-        placeholder;
+    placeholderOption.textContent = placeholder;
 
     fragment.appendChild(
         placeholderOption
