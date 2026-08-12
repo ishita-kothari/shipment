@@ -3,7 +3,7 @@ import {
     clearFieldError,
     clearValidationErrors,
     focusFirstInvalidField,
-    initializeFormUI,
+    initializeFormUI, renderShippingMethods,
     setSubmittingState,
     showStatus,
     showValidationErrors,
@@ -12,23 +12,26 @@ import {
 import {validateShipmentForm} from "./validation.js";
 import {buildShipmentPayload} from "./payload.js";
 import {CUSTOMS_COUNTRIES, FORM_STATUS} from "../constants.js";
-import {createShipment} from "../api.js";
+import {createShipment, getShippingMethods} from "../api.js";
 
 export class ShipmentForm {
     constructor(form) {
         this.form = form;
         this.ui = initializeFormUI(form);
         this.isSubmitting = false;
+        this.shippingMethodsContainer =
+            this.form.querySelector('#shipping_preference');
 
     }
 
-    init() {
+    async init() {
         this.bindEvents();
 
         updateCustomsVisibility(
             this.ui.customsSection,
             this.ui.countryField
         );
+        await this.loadShippingMethods();
     }
 
     bindEvents() {
@@ -136,10 +139,10 @@ export class ShipmentForm {
         );
     }
 
-    async submitShipment(payload) {
+    submitShipment(payload) {
         this.setSubmitting(true);
         [...this.form.elements].forEach(el => el.disabled = true)
-        await createShipment(payload)
+        return createShipment(payload)
             .then(res => {
                 showStatus(this.ui.status, FORM_STATUS.SUCCESS, "Shipment successfully created");
                 this.form.reset();
@@ -157,5 +160,25 @@ export class ShipmentForm {
             });
 
     }
+
+    loadShippingMethods() {
+        return getShippingMethods()
+            .then(methods => {
+                renderShippingMethods(
+                    this.shippingMethodsContainer,
+                    methods
+                );
+            })
+            .catch(error => {
+                console.error(
+                    'Failed to load shipping methods:',
+                    error
+                );
+
+                this.shippingMethodsContainer.textContent =
+                    'Unable to load shipping methods. Please try again.';
+            });
+    }
+
 }
 

@@ -198,3 +198,31 @@ export function showStatus(
     element.classList.toggle("status-success", type === "success");
     element.classList.toggle("status-error", type === "error");
 }
+
+export function renderShippingMethods(container, methods) {
+    container.replaceChildren();
+
+    const fragment = document.createDocumentFragment();
+
+    methods.forEach((method, index) => {
+        const option = document.createElement('div');
+        option.className = 'segment-option';
+
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.id = `ship-${method.preference}`;
+        input.name = 'shipping_preference';
+        input.value = method.preference;
+        input.checked = index === 0;
+        input.defaultChecked = index === 0;
+
+        const label = document.createElement('label');
+        label.htmlFor = input.id;
+        label.textContent = method.name.replace(' shipping method', '');
+
+        option.append(input, label);
+        fragment.appendChild(option);
+    });
+
+    container.appendChild(fragment);
+}

@@ -108,21 +108,8 @@
                 <legend class="group-label">
                     How would you like your parcel to be shipped?
                 </legend>
-                <div class="segmented-control">
-                    <div class="segment-option">
-                        <input type="radio" id="ship-fast" name="shipping_preference" value="fast" checked required>
-                        <label for="ship-fast">Fast</label>
-                    </div>
-
-                    <div class="segment-option">
-                        <input type="radio" id="ship-cheap" name="shipping_preference" value="cheap">
-                        <label for="ship-cheap">Cheap</label>
-                    </div>
-
-                    <div class="segment-option">
-                        <input type="radio" id="ship-reliable" name="shipping_preference" value="reliable">
-                        <label for="ship-reliable">Reliable</label>
-                    </div>
+                <div class="segmented-control" id="shipping_preference">
+                    Loading Shipping Preference...
                 </div>
                 <span class="form-error-message" id="shipping_preference-error" ></span>
             </fieldset>

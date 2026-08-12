@@ -1,4 +1,5 @@
-import {CREATE_API_URL} from "./config.js";
+import {CREATE_API_URL, SHIPPING_METHOD_API_URL} from "./config.js";
+import {SHIPPING_PREFERENCES} from "./constants.js";
 
 export async function createShipment(payload) {
     let response;
@@ -25,4 +26,19 @@ export async function createShipment(payload) {
     }
 
     return response;
+}
+
+export async function getShippingMethods() {
+    const response = await fetch(SHIPPING_METHOD_API_URL);
+
+    if (!response.ok) {
+        throw new Error('Failed to load shipping methods');
+    }
+
+    const methods = await response.json();
+
+    return methods.map((method) => ({
+        ...method,
+        preference: SHIPPING_PREFERENCES[method.name]
+    }));
 }

@@ -57,3 +57,9 @@ export const FORM_STATUS = {
     SUCCESS: 'success',
     ERROR: 'error'
 };
+
+export const SHIPPING_PREFERENCES = {
+    'Fast shipping method': 'fast',
+    'Cheap shipping method': 'cheap',
+    'Reliable shipping method': 'reliable'
+};
