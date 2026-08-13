@@ -30,4 +30,4 @@
 - Triple `await new Promise(setImmediate)` statements instead of using vitest polling utilities
 - **NOT A PRODUCTION ISSUE** objects methods and mockShipment are mutable 
 - no negative or bad flow tests
-- for the skipped test, the test was skipped, so it wasn’t running initially. I enabled it locally and it passes for me, so I couldn’t reproduce the reported issue; however, the multiple `setImmediate` calls make the test somewhat fragile.
+- For skipped test, the test passes in my environment, but it could be flaky across environments because it relies on a fixed number of setImmediate calls rather than explicitly waiting for the asynchronous load() operation to complete. Differences in Node, Vitest, or jsdom versions and event-loop scheduling could therefore make the test fail intermittently. my node and npm versions are v24.17 and v11.13 respectively

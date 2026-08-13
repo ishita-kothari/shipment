@@ -181,11 +181,16 @@ export function clearCustomsFields(
         });
 }
 
+let statusTimer;
 export function showStatus(
     element,
     type,
     message
 ) {
+    if (statusTimer) {
+        clearTimeout(statusTimer);
+        statusTimer = null;
+    }
     if (!message) {
         element.hidden = true;
         element.textContent = '';
@@ -197,6 +202,11 @@ export function showStatus(
     element.dataset.status = type;
     element.classList.toggle("status-success", type === "success");
     element.classList.toggle("status-error", type === "error");
+    statusTimer = setTimeout(() => {
+        element.hidden = true;
+        element.textContent = '';
+        statusTimer = null;
+    }, 2000);
 }
 
 export function renderShippingMethods(
