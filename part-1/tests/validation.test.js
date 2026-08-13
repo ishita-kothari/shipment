@@ -5,7 +5,7 @@ import {validateShipmentForm} from "../js/form/validation.js";
 import {renderShippingMethods, updateCustomsVisibility} from "../js/form/ui.js";
 import {SHIPPING_PREFERENCES} from "../js/constants.js";
 import {fileURLToPath} from "node:url";
-import {populateCountryOptions, populateFormOptions} from "../js/form/options.js";
+import { populateFormOptions} from "../js/form/options.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
