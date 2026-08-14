@@ -20,7 +20,7 @@ beforeEach(() => {
         'utf-8'
     );
     form = document.querySelector('#shipment-form');
-    const shippingMethodsContainer = document.querySelector('#shipping_preference');
+    const shippingMethodsContainer = document.querySelector('#shipping_preference_options');
 
     populateFormOptions(form);
     renderShippingMethods(

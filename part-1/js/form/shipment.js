@@ -20,7 +20,7 @@ export class ShipmentForm {
         this.ui = initializeFormUI(form);
         this.isSubmitting = false;
         this.shippingMethodsContainer =
-            this.form.querySelector('#shipping_preference');
+            this.form.querySelector('#shipping_preference_options');
 
     }
 

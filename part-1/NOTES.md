@@ -25,6 +25,8 @@ One small trade-off I made was around the customs fields. I wasn't completely su
 
 The downside is that if a user switches from GB to US and then back to GB, they need to enter the customs information again. For this assignment, I considered that behaviour simpler and less error-prone.
 
+PHONE_PATTERN = /^[+0-9\s().-]{6,}$/ is very permissive (e.g., "------" passes). Since the field's optional and the API doesn't validate phone format either, this may be fine for now. But I would make a check while validating later.
+
 ## What did I keep simple on purpose?
 
 I deliberately avoided adding abstractions that weren't necessary for the scope of the assignment:
